@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Study Buddy</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ================= LOGIN PAGE ================= -->
+
+    <div id="loginPage" class="login-page">
+
+        <div class="login-card">
+
+            <h1>📚 Study Buddy</h1>
+
+            <p>Your personal AI study assistant</p>
+
+            <form onsubmit="loginUser(event)">
+
+                <div class="input-group">
+                    <label>Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        class="input"
+                        placeholder="Enter your username"
+                        required
+                    >
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        class="input"
+                        placeholder="Enter your password"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="btn btn-primary">
+                    Login
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= MAIN APP ================= -->
+
+    <div id="mainApp" class="app-container hidden">
+
+        <!-- ================= SIDEBAR ================= -->
+
+        <aside class="sidebar">
+
+            <div class="logo">
+                📚 <span>Study Buddy</span>
+            </div>
+
+            <nav>
+
+                <button
+                    class="nav-item active"
+                    onclick="showPage('dashboard', this)">
+                    🏠 Dashboard
+                </button>
+
+                <button
+                    class="nav-item"
+                    onclick="showPage('tasks', this)">
+                    ✅ Tasks
+                </button>
+
+                <button
+                    class="nav-item"
+                    onclick="showPage('notes', this)">
+                    📝 Notes
+                </button>
+
+                <button
+                    class="nav-item"
+                    onclick="showPage('timer', this)">
+                    ⏱️ Focus Timer
+                </button>
+
+                <button
+                    class="nav-item"
+                    onclick="showPage('planner', this)">
+                    📅 Study Planner
+                </button>
+
+                <button
+                    class="nav-item"
+                    onclick="showPage('calendar', this)">
+                    🗓️ Calendar
+                </button>
+
+                <button
+                    class="nav-item"
+                    onclick="showPage('progress', this)">
+                    📊 Progress
+                </button>
+
+                <button
+                    class="nav-item"
+                    onclick="showPage('ai', this)">
+                    🤖 AI Assistant
+                </button>
+
+                <button
+                    class="nav-item"
+                    onclick="showPage('settings', this)">
+                    ⚙️ Settings
+                </button>
+
+            </nav>
+
+            <button
+                class="logout-btn"
+                onclick="logoutUser()">
+                🚪 Logout
+            </button>
+
+        </aside>
+
+
+        <!-- ================= MAIN CONTENT ================= -->
+
+        <main class="main-content">
+
+            <!-- ================= DASHBOARD ================= -->
+
+            <section class="page active" id="dashboard">
+
+                <div class="page-header">
+
+                    <div>
+                        <h2>Welcome back! 👋</h2>
+                        <p>Let's make today productive.</p>
+                    </div>
+
+                </div>
+
+                <div class="stats-grid">
+
+                    <div class="stat-card">
+                        <div class="stat-icon">📋</div>
+                        <div>
+                            <h3 id="totalTasks">0</h3>
+                            <p>Total Tasks</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">✅</div>
+                        <div>
+                            <h3 id="completedTasks">0</h3>
+                            <p>Completed</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">📝</div>
+                        <div>
+                            <h3 id="totalNotes">0</h3>
+                            <p>Notes</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon">🔥</div>
+                        <div>
+                            <h3 id="studyStreak">0</h3>
+                            <p>Study Streak</p>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-title">
+                        <h3>Today's Tasks</h3>
+                    </div>
+
+                    <div id="dashboardTasks">
+                        No tasks yet.
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= TASKS ================= -->
+
+            <section class="page" id="tasks">
+
+                <div class="page-header">
+
+                    <div>
+                        <h2>My Tasks</h2>
+                        <p>Manage your study tasks.</p>
+                    </div>
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="openTaskModal()">
+                        + Add Task
+                    </button>
+
+                </div>
+
+                <div class="card">
+
+                    <div id="taskList">
+                        No tasks yet.
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= NOTES ================= -->
+
+            <section class="page" id="notes">
+
+                <div class="page-header">
+
+                    <div>
+                        <h2>My Notes</h2>
+                        <p>Keep your important study notes here.</p>
+                    </div>
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="openNoteModal()">
+                        + Add Note
+                    </button>
+
+                </div>
+
+                <div
+                    class="notes-grid"
+                    id="notesList">
+                </div>
+
+            </section>
+
+
+            <!-- ================= TIMER ================= -->
+
+            <section class="page" id="timer">
+
+                <div class="page-header">
+
+                    <div>
+                        <h2>Focus Timer</h2>
+                        <p>Stay focused and study smarter.</p>
+                    </div>
+
+                </div>
+
+                <div class="card timer-card">
+
+                    <div
+                        id="timerDisplay"
+                        class="timer-display">
+                        25:00
+                    </div>
+
+                    <div class="timer-controls">
+
+                        <button
+                            class="btn btn-primary"
+                            onclick="startTimer()">
+                            ▶ Start
+                        </button>
+
+                        <button
+                            class="btn"
+                            onclick="pauseTimer()">
+                            ⏸ Pause
+                        </button>
+
+                        <button
+                            class="btn"
+                            onclick="resetTimer()">
+                            🔄 Reset
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= PLANNER ================= -->
+
+            <section class="page" id="planner">
+
+                <div class="page-header">
+
+                    <div>
+                        <h2>Study Planner</h2>
+                        <p>Plan your study sessions.</p>
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <div id="plannerContent">
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= CALENDAR ================= -->
+
+            <section class="page" id="calendar">
+
+                <div class="page-header">
+
+                    <div>
+                        <h2>Calendar</h2>
+                        <p>View your study schedule.</p>
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <div id="calendarContent">
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= PROGRESS ================= -->
+
+            <section class="page" id="progress">
+
+                <div class="page-header">
+
+                    <div>
+                        <h2>My Progress</h2>
+                        <p>Track your study progress.</p>
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <div id="progressContent">
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= AI ASSISTANT ================= -->
+
+            <section class="page" id="ai">
+
+                <div class="card">
+
+                    <div class="card-title">
+
+                        <h3>🤖 AI Study Assistant</h3>
+
+                        <span>
+                            Ask anything
+                        </span>
+
+                    </div>
+
+
+                    <div class="input-group">
+
+                        <input
+                            class="input"
+                            id="aiQuestion"
+                            type="text"
+                            placeholder="Ask your study question..."
+                        >
+
+                        <button
+                            class="btn btn-primary"
+                            onclick="askAI()">
+                            Ask AI
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        class="ai-response"
+                        id="aiResponse">
+
+                        Your AI response will appear here.
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ================= SETTINGS ================= -->
+
+            <section class="page" id="settings">
+
+                <div class="page-header">
+
+                    <div>
+                        <h2>Settings</h2>
+                        <p>Customize your Study Buddy.</p>
+                    </div>
+
+                </div>
+
+                <div class="card">
+
+                    <div class="input-group">
+
+                        <label>Username</label>
+
+                        <input
+                            type="text"
+                            id="settingsUsername"
+                            class="input"
+                        >
+
+                    </div>
+
+                    <button
+                        class="btn btn-primary"
+                        onclick="saveSettings()">
+                        Save Settings
+                    </button>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- ================= TASK MODAL ================= -->
+
+    <div
+        class="modal hidden"
+        id="taskModal">
+
+        <div class="modal-content">
+
+            <div class="card-title">
+
+                <h3>Add Task</h3>
+
+                <button
+                    class="close-btn"
+                    onclick="closeTaskModal()">
+                    ×
+                </button>
+
+            </div>
+
+            <form onsubmit="addTask(event)">
+
+                <div class="input-group">
+
+                    <label>Task</label>
+
+                    <input
+                        type="text"
+                        id="taskInput"
+                        class="input"
+                        placeholder="Enter task"
+                        required
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Due Date</label>
+
+                    <input
+                        type="date"
+                        id="taskDate"
+                        class="input"
+                    >
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary">
+                    Add Task
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= NOTE MODAL ================= -->
+
+    <div
+        class="modal hidden"
+        id="noteModal">
+
+        <div class="modal-content">
+
+            <div class="card-title">
+
+                <h3>Add Note</h3>
+
+                <button
+                    class="close-btn"
+                    onclick="closeNoteModal()">
+                    ×
+                </button>
+
+            </div>
+
+            <form onsubmit="addNote(event)">
+
+                <div class="input-group">
+
+                    <label>Title</label>
+
+                    <input
+                        type="text"
+                        id="noteTitle"
+                        class="input"
+                        placeholder="Note title"
+                        required
+                    >
+
+                </div>
+
+                <div class="input-group">
+
+                    <label>Content</label>
+
+                    <textarea
+                        id="noteContent"
+                        class="input"
+                        placeholder="Write your note..."
+                        rows="6"
+                        required
+                    ></textarea>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary">
+                    Save Note
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= TOAST ================= -->
+
+    <div
+        id="toast"
+        class="toast">
+    </div>
+
+
+    <!-- ================= JAVASCRIPT ================= -->
+
+    <script src="script.js"></script>
+
+</body>
+</html>
