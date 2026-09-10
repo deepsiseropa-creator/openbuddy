@@ -1144,7 +1144,7 @@ async function askAI() {
 
         const response =
             await fetch(
-                "https://studybuddy-1-helv.onrender.com/api/ai",
+                " https://openbuddy-1.onrender.com",
                 {
                     method: "POST",
 
